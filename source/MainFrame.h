@@ -7,6 +7,11 @@ class MainFrame : public wxFrame
     public:
         MainFrame(const wxString& title);
 
+        void OnAbout(wxCommandEvent& event);
+        void OnReset(wxCommandEvent& event);
+        void OnExit(wxCommandEvent& event);
+
     private:
-        void CreateControls()
+        void CreateMenus();
+        void CreateControls();
 };
