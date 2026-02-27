@@ -2,13 +2,15 @@
 #include "App.h"
 #include <wx/wx.h>
 #include <vector>
-//#include "Game.h"
+#include "Game.h"
 
 //Game* game = new Game();
 
 enum {
     ID_Reset = 1
 };
+
+Game* game = new Game();
 
 //MainFrame Constructor
 MainFrame::MainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title)
@@ -48,17 +50,20 @@ void MainFrame::CreateMenus()
     Bind(wxEVT_MENU, &MainFrame::OnExit, this, wxID_EXIT);
 }
 
+//event handler for Quit
 void MainFrame::OnExit(wxCommandEvent& event)
 {
     Close(true);
 }
     
+//event handler for the About menu option
 void MainFrame::OnAbout(wxCommandEvent& event)
 {
     wxMessageBox("This is a wxWidgets version of Connect 4",
         "About Connect 4", wxOK | wxICON_INFORMATION);
 }
-        
+
+//event handler for the Reset menu option
 void MainFrame::OnReset(wxCommandEvent& event)
 {
     SetStatusText(wxString::Format(wxT("Reset!")));
@@ -66,32 +71,42 @@ void MainFrame::OnReset(wxCommandEvent& event)
 
 void MainFrame::CreateControls()
 {   
+    //create a panel to hold the controls
     wxPanel* panel = new wxPanel(this);
+    
+    //create a vector to hold the buttons
     std::vector<wxButton*> buttons;
 
+    //generate buttons to fill the 6 * 7 grid of the connect 4 board
     for (int i = 0; i < 6 * 7; i++){
-        int remainder = i % 7;
+        int remainder = i % 7; //calculates the column that the buttons are in.
         wxString label = wxString::Format("B %d", remainder);
         wxButton* button = new wxButton(panel, i, label, wxDefaultPosition, wxSize(50,50));
         buttons.push_back(button);
     }
     
+    //create a grid sizer with 7 columns, and add the buttons.
     wxGridSizer* gridSizer = new wxGridSizer(7);
-    wxSizerFlags flags = wxSizerFlags().Border(wxALL,10).Expand();
+    wxSizerFlags flags = wxSizerFlags().Border(wxALL,10).Expand(); //buttons have a border and fill their position
     for (wxButton* button : buttons){
         gridSizer->Add(button, flags);
     };
       
+    //create a border box using a grid sizer of 1 column and add the grid sizer to it
     wxGridSizer* borderSizer = new wxGridSizer(1);
     borderSizer->Add(gridSizer,wxSizerFlags().Border(wxALL, 10).Expand());
+    
+    //add the sizers to the panel and set the size hints so the panel and frame size correctly
     panel->SetSizer(borderSizer);
     borderSizer->SetSizeHints(this);
   
+    //bind the button events to the event handler
     for (wxButton* button : buttons){
         Bind(wxEVT_BUTTON, &MainFrame::OnButtonPress, this);
     };
 }
 
+//event handler for the buttons
 void MainFrame::OnButtonPress(wxCommandEvent& event){
     int column = event.GetId() % 7;
     SetStatusText(wxString::Format("%d", column));
