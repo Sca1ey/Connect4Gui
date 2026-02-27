@@ -1,6 +1,7 @@
 #include "MainFrame.h"
 #include "App.h"
 #include <wx/wx.h>
+#include <vector>
 //#include "Game.h"
 
 //Game* game = new Game();
@@ -64,6 +65,34 @@ void MainFrame::OnReset(wxCommandEvent& event)
 }
 
 void MainFrame::CreateControls()
-{
+{   
+    wxPanel* panel = new wxPanel(this);
+    std::vector<wxButton*> buttons;
 
+    for (int i = 0; i < 6 * 7; i++){
+        int remainder = i % 7;
+        wxString label = wxString::Format("B %d", remainder);
+        wxButton* button = new wxButton(panel, i, label, wxDefaultPosition, wxSize(50,50));
+        buttons.push_back(button);
+    }
+    
+    wxGridSizer* gridSizer = new wxGridSizer(7);
+    wxSizerFlags flags = wxSizerFlags().Border(wxALL,10).Expand();
+    for (wxButton* button : buttons){
+        gridSizer->Add(button, flags);
+    };
+      
+    wxGridSizer* borderSizer = new wxGridSizer(1);
+    borderSizer->Add(gridSizer,wxSizerFlags().Border(wxALL, 10).Expand());
+    panel->SetSizer(borderSizer);
+    borderSizer->SetSizeHints(this);
+  
+    for (wxButton* button : buttons){
+        Bind(wxEVT_BUTTON, &MainFrame::OnButtonPress, this);
+    };
+}
+
+void MainFrame::OnButtonPress(wxCommandEvent& event){
+    int column = event.GetId() % 7;
+    SetStatusText(wxString::Format("%d", column));
 }
