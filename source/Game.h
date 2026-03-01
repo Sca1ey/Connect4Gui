@@ -11,6 +11,7 @@ class Game {
         Game();
         void InitBoard(int COLUMNS, int ROWS);
         int GetPosition(int COL, int ROW);
+        int SetPosition(int COL, int ROW, int VALUE);
 
     private:
         int mCOLUMNS = 7;

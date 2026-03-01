@@ -115,6 +115,7 @@ void MainFrame::OnButtonPress(wxCommandEvent& event){
     int column = buttonID % columns;
     int row = buttonID / rows;
 
+    game->SetPosition(column, row, buttonID);
     int boardValue = game->GetPosition(column, row);
     SetStatusText(wxString::Format("%d", boardValue));
 }
