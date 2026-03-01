@@ -3,19 +3,16 @@
 #include <stdio.h>
 #include <iostream>
 #include <limits>
+#include <vector>
 
 class Game {
     public:
         Game(int COLUMNS, int ROWS);
-        InitBoard(int COL, int ROW);
+        Game();
+        void InitBoard(int COLUMNS, int ROWS);
 
     private:
-        
-        int COLUMNS = 7;
-        int ROWS = 6;
-        enum PositionState {
-            EMPTY,
-            NOUGHT,
-            CROSS
-        };
+        int mCOLUMNS = 7;
+        int mROWS = 6;
+        std::vector<std::vector<int>> board;
 };
