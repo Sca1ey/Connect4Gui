@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <limits>
+#include <vector>
 #include "Game.h"
 
 Game::Game(int COLUMNS, int ROWS)
@@ -31,7 +32,7 @@ int Game::GetPosition(int COL, int ROW)
     return board[COL][ROW];
 }
 
-int SetPosition(int COL, int ROW, int VALUE)
+int Game::SetPosition(int COL, int ROW, int VALUE)
 {
     board[COL][ROW] = VALUE;
     return board[COL][ROW];

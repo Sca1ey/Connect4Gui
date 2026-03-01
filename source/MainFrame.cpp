@@ -79,11 +79,11 @@ void MainFrame::CreateControls()
     //create a vector to hold the buttons
     std::vector<wxButton*> buttons;
 
-    //generate buttons to fill the 6 * 7 grid of the connect 4 board
-    for (int i = 0; i < 6 * 7; i++){
-        int x = i % 7; //column
-        int y = i / 7; //row
-        wxString label = wxString::Format("x:%d / y:%d", x , y);
+    //generate buttons to fill the grid of the connect 4 board
+    for (int i = 0; i < columns * rows; i++){
+        int x = i % columns; //column
+        int y = i / columns; //row
+        wxString label = wxString::Format("id:%d, %d / %d", i, x , y);
         wxButton* button = new wxButton(panel, i, label, wxDefaultPosition, wxSize(50,50));
         buttons.push_back(button);
     }
