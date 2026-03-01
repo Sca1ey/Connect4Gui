@@ -21,7 +21,12 @@ void Game::InitBoard(int COLUMNS, int ROWS)
 {
     for (int x = 0; x < COLUMNS; x++){
                 for (int y = 0; y < ROWS; y++){
-                    board[x][y] = 0;
+                    board.push_back({x*y});
                 }
     }
+}
+
+int Game::GetPosition(int COL, int ROW)
+{
+    return board[COL][ROW];
 }

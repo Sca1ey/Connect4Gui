@@ -10,7 +10,9 @@ enum {
     ID_Reset = 1
 };
 
-Game* game = new Game();
+int columns = 7;
+int rows = 6;
+Game* game = new Game(columns, rows);
 
 //MainFrame Constructor
 MainFrame::MainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title)
@@ -109,6 +111,10 @@ void MainFrame::CreateControls()
 
 //event handler for the buttons
 void MainFrame::OnButtonPress(wxCommandEvent& event){
-    int column = event.GetId() % 7;
-    SetStatusText(wxString::Format("%d", column));
+    int buttonID = event.GetId();
+    int column = buttonID % columns;
+    int row = buttonID / rows;
+
+    int boardValue = game->GetPosition(column, row);
+    SetStatusText(wxString::Format("%d", boardValue));
 }

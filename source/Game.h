@@ -10,6 +10,7 @@ class Game {
         Game(int COLUMNS, int ROWS);
         Game();
         void InitBoard(int COLUMNS, int ROWS);
+        int GetPosition(int COL, int ROW);
 
     private:
         int mCOLUMNS = 7;
