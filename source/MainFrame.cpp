@@ -79,8 +79,9 @@ void MainFrame::CreateControls()
 
     //generate buttons to fill the 6 * 7 grid of the connect 4 board
     for (int i = 0; i < 6 * 7; i++){
-        int remainder = i % 7; //calculates the column that the buttons are in.
-        wxString label = wxString::Format("B %d", remainder);
+        int x = i % 7; //column
+        int y = i / 7; //row
+        wxString label = wxString::Format("x:%d / y:%d", x , y);
         wxButton* button = new wxButton(panel, i, label, wxDefaultPosition, wxSize(50,50));
         buttons.push_back(button);
     }

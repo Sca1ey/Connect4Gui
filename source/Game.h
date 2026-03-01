@@ -6,9 +6,11 @@
 
 class Game {
     public:
-        Game();
+        Game(int COLUMNS, int ROWS);
+        InitBoard(int COL, int ROW);
 
     private:
+        
         int COLUMNS = 7;
         int ROWS = 6;
         enum PositionState {
