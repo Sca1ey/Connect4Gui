@@ -48,8 +48,8 @@ bool Game::isColumnFull(int COL)
 
 int Game::getFreeRowInColumn(int COL)
 {
-    for(int ROW = mROWS - 1; y >= 0; y--){
-        if(getPosition(COL, ROW) == 0){
+    for(int ROW = mROWS - 1; ROW >= 0; ROW--){
+        if(Game::GetPosition(COL, ROW) == 0){
             return ROW;
         }
     }
@@ -63,6 +63,6 @@ int Game::GetPlayer()
 
 int Game::SwitchPlayer()
 {
-    if(mPlayer == 1) {mPlayer == 2} else {mPlayer = 1};
+    if(mPlayer == 1) {mPlayer == 2;} else {mPlayer = 1;};
     return mPlayer;
 }
