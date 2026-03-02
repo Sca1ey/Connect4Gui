@@ -10,7 +10,7 @@ Game::Game(int COLUMNS, int ROWS)
       mROWS{ROWS},
       mBoard(ROWS, std::vector<int>(COLUMNS, 0))
     {
-        //empty constructor
+        Game::InitBoard();
     };
 
 
