@@ -10,6 +10,7 @@ enum {
     ID_Reset = 1
 };
 
+//set the size of the game board (7 x 6 is standard, 4 x 4 is the minimum.)
 int columns = 7;
 int rows = 6;
 Game* game = new Game(columns, rows);
@@ -88,8 +89,8 @@ void MainFrame::CreateControls()
         buttons.push_back(button);
     }
     
-    //create a grid sizer with 7 columns, and add the buttons.
-    wxGridSizer* gridSizer = new wxGridSizer(7);
+    //create a grid sizer with the number columns, and add the buttons.
+    wxGridSizer* gridSizer = new wxGridSizer(columns);
     wxSizerFlags flags = wxSizerFlags().Border(wxALL,10).Expand(); //buttons have a border and fill their position
     for (wxButton* button : buttons){
         gridSizer->Add(button, flags);
