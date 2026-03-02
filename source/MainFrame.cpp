@@ -77,9 +77,6 @@ void MainFrame::CreateControls()
     //create a panel to hold the controls
     wxPanel* panel = new wxPanel(this);
     
-    //create a vector to hold the buttons
-    std::vector<wxButton*> buttons;
-
     //generate buttons to fill the grid of the connect 4 board
     for (int i = 0; i < columns * rows; i++){
         // int x = i % columns; //column
@@ -104,10 +101,23 @@ void MainFrame::CreateControls()
     //add the sizers to the panel and set the size hints so the panel and frame size correctly
     panel->SetSizer(borderSizer);
     borderSizer->SetSizeHints(this);
-  
+    
+    MainFrame::BindButtons();
+}
+
+void MainFrame::BindButtons()
+{
     //bind the button events to the event handler
     for (wxButton* button : buttons){
         Bind(wxEVT_BUTTON, &MainFrame::OnButtonPress, this);
+    };
+}
+
+void MainFrame::UnbindButtons()
+{
+     //unbind the button events from the event handler
+    for (wxButton* button : buttons){
+        Unbind(wxEVT_BUTTON, &MainFrame::OnButtonPress, this);
     };
 }
 
@@ -149,6 +159,12 @@ void MainFrame::OnButtonPress(wxCommandEvent& event){
     }
 
     //check for win
+    bool win = game->CheckWin(player);
+    if(win == true)
+    {
+        wxMessageBox(wxString::Format("Player %d wins!\nReset to play again.", player));
+        MainFrame::UnbindButtons();
+    }
 
     //switch player
     player = game->SwitchPlayer();

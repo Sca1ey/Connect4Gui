@@ -59,79 +59,78 @@ int Game::SwitchPlayer()
     return mPlayer;
 }
 
-bool Game::CheckWin(int COL, int ROW)
+bool Game::CheckWin(int player)
 {
     // Check horizontal -3 to 3
-        // Check vertical -3 to 3
-        // Check diagonal -3,-3 to +3,+3
-        // Check diagonal -3,+3 to +3,-3
+    // Check vertical -3 to 3
+    // Check diagonal -3,-3 to +3,+3
+    // Check diagonal -3,+3 to +3,-3
        
-            int count = 0;
-            //loop through board x,y
-            for (int x = 0; x < COLUMNS; x++){
-                for (int y = 0; y < ROWS; y++){
+    int count = 0;
+    for (int x = 0; x < mCOLUMNS; x++){
+        for (int y = 0; y < mROWS; y++){
 
-                    //test current board position
-                    if(getPosition(x,y) != player) continue;
+            //test current board position
+            if(GetPosition(x,y) != player) continue;
                                     
-                    //horizontal
+            //horizontal
+            count = 0;
+            for(int offset = -3; offset < 4; offset++){
+                int  xOffset = x + offset;
+                if(xOffset < 0 || xOffset >= mCOLUMNS) continue;
+                if(GetPosition(xOffset,y) == player) {
+                    count++;
+                    if (count >= 4) return true;
+                } else {
                     count = 0;
-                    for(int offset = -3; offset < 4; offset++){
-                        int  xOffset = x + offset;
-                        if(xOffset < 0 || xOffset >= COLUMNS) continue;
-                        if(getPosition(xOffset,y) == player) {
-                            count++;
-                            if (count >= 4) return true;
-                        } else {
-                            count = 0;
-                        }
-                    }
-
-                    //vertical
-                    count = 0;
-                    for(int offset = -3; offset < 4; offset++){
-                        int yOffset = y + offset;
-                        if(yOffset < 0 || yOffset >= ROWS) continue;
-                        if(getPosition(x, yOffset) == player){
-                            count++;
-                            if (count >= 4) return true;
-                        } else {
-                            count = 0;
-                        }
-                    }
-
-                    //diagonal down-right
-                    count = 0;
-                    for(int offset = -3 ; offset < 4; offset++){
-
-                            int xOffset = x + offset;
-                            int yOffset = y + offset;
-                                                
-                            if(xOffset < 0 || xOffset >= COLUMNS || yOffset < 0 || yOffset >= ROWS) continue;
-                            if(getPosition(xOffset, yOffset) == player) {
-                                count++;
-                                if (count >= 4) return true;
-                            } else {
-                                count=0;
-                            }
-                    }
-
-                    //diagonal down-left
-                    count = 0;
-                    for(int offsetX = 3, offsetY = -3; offsetX >-4, offsetY < 4; offsetX--, offsetY++){
-                            int xOffset = x + offsetX;
-                            int yOffset = y + offsetY;                 
-                            if(xOffset < 0 || xOffset >= COLUMNS || yOffset < 0 || yOffset >= ROWS) continue;
-                            if(getPosition(xOffset, yOffset) == player) {
-                                count++;
-                                if (count >= 4) return true;
-                            } else {
-                                count=0;
-                            }    
-                    }
-
                 }
             }
-            return false;
+
+            //vertical
+            count = 0;
+            for(int offset = -3; offset < 4; offset++){
+                int yOffset = y + offset;
+                if(yOffset < 0 || yOffset >= mROWS) continue;
+                if(GetPosition(x, yOffset) == player){
+                    count++;
+                    if (count >= 4) return true;
+                } else {
+                    count = 0;
+                }
+            }
+
+            //diagonal down-right
+            count = 0;
+            for(int offset = -3 ; offset < 4; offset++){
+
+                    int xOffset = x + offset;
+                    int yOffset = y + offset;
+                                        
+                    if(xOffset < 0 || xOffset >= mCOLUMNS || yOffset < 0 || yOffset >= mROWS) continue;
+                    if(GetPosition(xOffset, yOffset) == player) {
+                        count++;
+                        if (count >= 4) return true;
+                    } else {
+                        count=0;
+                    }
+            }
+
+            //diagonal down-left
+            count = 0;
+            for(int offsetX = 3, offsetY = -3; offsetX >-4, offsetY < 4; offsetX--, offsetY++){
+                    int xOffset = x + offsetX;
+                    int yOffset = y + offsetY;                 
+                    if(xOffset < 0 || xOffset >= mCOLUMNS || yOffset < 0 || yOffset >= mROWS) continue;
+                    if(GetPosition(xOffset, yOffset) == player) {
+                        count++;
+                        if (count >= 4) return true;
+                    } else {
+                        count=0;
+                    }    
+            }
+
+        }
+    }
+    return false;
         
 }

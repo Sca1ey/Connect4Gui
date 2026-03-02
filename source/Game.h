@@ -15,7 +15,7 @@ class Game {
         int GetFreeRowInColumn(int COL);
         int GetPlayer();
         int SwitchPlayer();
-        bool CheckWin(int COL, int ROW);
+        bool CheckWin(int player);
 
     private:
         int mCOLUMNS = 7;

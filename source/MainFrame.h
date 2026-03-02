@@ -11,12 +11,12 @@ class MainFrame : public wxFrame
         void OnReset(wxCommandEvent& event);
         void OnExit(wxCommandEvent& event);
         void OnButtonPress(wxCommandEvent& event);
+        void BindButtons();
+        void UnbindButtons();
 
     private:
         void CreateMenus();
         void CreateControls();
         
-
-        wxGridSizer* gridSizer;
-        wxGridSizer* borderSizer;
+        std::vector<wxButton*> buttons;
 };
