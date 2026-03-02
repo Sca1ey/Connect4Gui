@@ -7,23 +7,19 @@
 
 Game::Game(int COLUMNS, int ROWS)
     : mCOLUMNS{COLUMNS},
-      mROWS{ROWS} 
+      mROWS{ROWS},
+      mBoard(ROWS, std::vector<int>(COLUMNS, 0))
     {
-        InitBoard(mCOLUMNS, mROWS);
+        //empty constructor
     };
 
-Game::Game()
-    {
-        InitBoard(mCOLUMNS, mROWS);
-    };
 
-void Game::InitBoard(int COLUMNS, int ROWS)
-    
-{
-    for (int x = 0; x < COLUMNS; x++){
-                for (int y = 0; y < ROWS; y++){
-                    mBoard.push_back({0});
-                }
+void Game::InitBoard() 
+{    
+    for(int x = 0; x < mCOLUMNS; x++){
+        for(int y = 0; y < mROWS; y++){
+            mBoard[x][y] = 0;
+        }
     }
 }
 

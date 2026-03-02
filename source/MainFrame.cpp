@@ -68,8 +68,17 @@ void MainFrame::OnAbout(wxCommandEvent& event)
 
 //event handler for the Reset menu option
 void MainFrame::OnReset(wxCommandEvent& event)
-{
-    SetStatusText(wxString::Format(wxT("Reset!")));
+{   
+    game->InitBoard();
+
+    for (wxButton* button : buttons){
+        button->SetLabel("");
+        Bind(wxEVT_BUTTON, &MainFrame::OnButtonPress, this);
+    };
+    
+    int player = game->GetPlayer();
+    if(player == 2) {game->SwitchPlayer();}
+    SetStatusText(wxString::Format(wxT("Player %d's turn."),player));
 }
 
 void MainFrame::CreateControls()
@@ -102,15 +111,11 @@ void MainFrame::CreateControls()
     panel->SetSizer(borderSizer);
     borderSizer->SetSizeHints(this);
     
-    MainFrame::BindButtons();
-}
-
-void MainFrame::BindButtons()
-{
     //bind the button events to the event handler
     for (wxButton* button : buttons){
         Bind(wxEVT_BUTTON, &MainFrame::OnButtonPress, this);
     };
+ 
 }
 
 void MainFrame::UnbindButtons()

@@ -9,7 +9,7 @@ class Game {
     public:
         Game(int COLUMNS, int ROWS);
         Game();
-        void InitBoard(int COLUMNS, int ROWS);
+        void InitBoard();
         int GetPosition(int COL, int ROW);
         int SetPosition(int COL, int ROW, int VALUE);
         int GetFreeRowInColumn(int COL);
