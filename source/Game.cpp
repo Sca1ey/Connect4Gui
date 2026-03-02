@@ -37,3 +37,20 @@ int Game::SetPosition(int COL, int ROW, int VALUE)
     board[COL][ROW] = VALUE;
     return board[COL][ROW];
 }
+
+bool Game::isColumnFull(int COL)
+{
+    if(board[COL][0] != 0){
+        return true;
+        }
+    return false;
+}
+
+int Game::getFreeRowInColumn(int COL){
+    for(int ROW = mROWS - 1; y >= 0; y--){
+        if(getPosition(COL, ROW) == 0){
+            return ROW;
+        }
+    }
+    return -1;
+}

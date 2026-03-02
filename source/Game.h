@@ -12,6 +12,8 @@ class Game {
         void InitBoard(int COLUMNS, int ROWS);
         int GetPosition(int COL, int ROW);
         int SetPosition(int COL, int ROW, int VALUE);
+        bool isColumnFull(int COL);
+        int getFreeRowInColumn(int COL);
 
     private:
         int mCOLUMNS = 7;
