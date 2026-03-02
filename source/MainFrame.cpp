@@ -82,9 +82,10 @@ void MainFrame::CreateControls()
 
     //generate buttons to fill the grid of the connect 4 board
     for (int i = 0; i < columns * rows; i++){
-        int x = i % columns; //column
-        int y = i / columns; //row
-        wxString label = wxString::Format("id:%d, %d / %d", i, x , y);
+        // int x = i % columns; //column
+        // int y = i / columns; //row
+        // wxString label = wxString::Format("id:%d, %d / %d", i, x , y);
+        wxString label = "";
         wxButton* button = new wxButton(panel, i, label, wxDefaultPosition, wxSize(50,50));
         buttons.push_back(button);
     }
@@ -116,7 +117,5 @@ void MainFrame::OnButtonPress(wxCommandEvent& event){
     int column = buttonID % columns;
     int row = buttonID / rows;
 
-    game->SetPosition(column, row, buttonID);
     int boardValue = game->GetPosition(column, row);
-    SetStatusText(wxString::Format("%d", boardValue));
 }
