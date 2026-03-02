@@ -12,10 +12,10 @@ class Game {
         void InitBoard(int COLUMNS, int ROWS);
         int GetPosition(int COL, int ROW);
         int SetPosition(int COL, int ROW, int VALUE);
-        bool isColumnFull(int COL);
-        int getFreeRowInColumn(int COL);
+        int GetFreeRowInColumn(int COL);
         int GetPlayer();
         int SwitchPlayer();
+        bool CheckWin(int COL, int ROW);
 
     private:
         int mCOLUMNS = 7;

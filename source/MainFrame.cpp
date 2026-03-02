@@ -113,9 +113,44 @@ void MainFrame::CreateControls()
 
 //event handler for the buttons
 void MainFrame::OnButtonPress(wxCommandEvent& event){
+    //get the button details
+    wxButton* button = wxStaticCast(event.GetEventObject(), wxButton);
     int buttonID = event.GetId();
     int column = buttonID % columns;
-    int row = buttonID / rows;
+    int row = buttonID / columns;
 
+    //grab the current player
+    int player = game->GetPlayer();
+
+    //get the top cell that is empty
+    int freeRow = game->GetFreeRowInColumn(column);
+    //compare the row of the button and the free row
+    if(row != freeRow){
+        return; //if they don't match ignore the event
+    }
+
+    //set the position to the player
+    game->SetPosition(column, freeRow, player);
+
+    //set the label on the button, only case 1 & 2 should appear in game
     int boardValue = game->GetPosition(column, row);
+    switch(boardValue){
+        case 0:
+            button->SetLabel(wxString::Format("Z"));
+            break;
+        case 1:
+            button->SetLabel(wxString::Format("O"));
+            break;
+        case 2:
+            button->SetLabel(wxString::Format("X"));
+            break;
+        default:
+            button->SetLabel(wxString::Format("?"));
+    }
+
+    //check for win
+
+    //switch player
+    player = game->SwitchPlayer();
+    SetStatusText(wxString::Format("Player %d's turn.", player));
 }
