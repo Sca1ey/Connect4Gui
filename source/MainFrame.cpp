@@ -13,7 +13,7 @@ enum {
 //set the size of the game board (7 x 6 is standard, 4 x 4 is the minimum.)
 int columns = 7;
 int rows = 6;
-Game* game = new Game(columns, rows);
+Game game(columns, rows);
 
 //MainFrame Constructor
 MainFrame::MainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title)
@@ -44,7 +44,7 @@ void MainFrame::CreateMenus()
     
     //Create Status bar and set inital text
     CreateStatusBar();
-    int currPlayer = game->GetPlayer();
+    int currPlayer = game.GetPlayer();
     SetStatusText(wxString::Format(wxT("Player %d's turn."),currPlayer));
 
     //Bind event handlers for menu 
@@ -69,15 +69,15 @@ void MainFrame::OnAbout(wxCommandEvent& event)
 //event handler for the Reset menu option
 void MainFrame::OnReset(wxCommandEvent& event)
 {   
-    game->InitBoard();
+    game.InitBoard();
 
     for (wxButton* button : buttons){
         button->SetLabel("");
         Bind(wxEVT_BUTTON, &MainFrame::OnButtonPress, this);
     };
     
-    int player = game->GetPlayer();
-    if(player == 2) {game->SwitchPlayer();}
+    int player = game.GetPlayer();
+    if(player == 2) {game.SwitchPlayer();}
     SetStatusText(wxString::Format(wxT("Player %d's turn."),player));
 }
 
@@ -135,20 +135,20 @@ void MainFrame::OnButtonPress(wxCommandEvent& event){
     int row = buttonID / columns;
 
     //grab the current player
-    int player = game->GetPlayer();
+    int player = game.GetPlayer();
 
     //get the top cell that is empty
-    int freeRow = game->GetFreeRowInColumn(column);
+    int freeRow = game.GetFreeRowInColumn(column);
     //compare the row of the button and the free row
     if(row != freeRow){
         return; //if they don't match ignore the event
     }
 
     //set the position to the player
-    game->SetPosition(column, freeRow, player);
+    game.SetPosition(column, freeRow, player);
 
     //set the label on the button, only case 1 & 2 should appear in game
-    int boardValue = game->GetPosition(column, row);
+    int boardValue = game.GetPosition(column, row);
     switch(boardValue){
         case 0:
             button->SetLabel(wxString::Format("Z"));
@@ -164,7 +164,7 @@ void MainFrame::OnButtonPress(wxCommandEvent& event){
     }
 
     //check for win
-    bool win = game->CheckWin(player);
+    bool win = game.CheckWin(player);
     if(win == true)
     {
         wxMessageBox(wxString::Format("Player %d wins!\nReset to play again.", player));
@@ -172,6 +172,6 @@ void MainFrame::OnButtonPress(wxCommandEvent& event){
     }
 
     //switch player
-    player = game->SwitchPlayer();
+    player = game.SwitchPlayer();
     SetStatusText(wxString::Format("Player %d's turn.", player));
 }
