@@ -1,10 +1,4 @@
 #include "MainFrame.h"
-#include "App.h"
-#include <wx/wx.h>
-#include <vector>
-#include "Game.h"
-
-//Game* game = new Game();
 
 enum {
     ID_Reset = 1

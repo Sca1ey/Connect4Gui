@@ -1,8 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <iostream>
-#include <limits>
-#include <vector>
 #include "Game.h"
 
 Game::Game(int COLUMNS, int ROWS)

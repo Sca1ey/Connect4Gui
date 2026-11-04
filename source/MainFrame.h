@@ -1,6 +1,8 @@
 #pragma once
-//#include "Game.h"
 #include <wx/wx.h>
+#include "App.h"
+#include "Game.h"
+#include <vector>
 
 class MainFrame : public wxFrame
 {
